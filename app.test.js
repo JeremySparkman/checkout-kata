@@ -34,4 +34,14 @@ describe('StoreItem', () => {
       })
     );
   });
+  test('Create a StoreItem with a quantity', () => {
+    expect(new app.StoreItem('bananas', 2.38, 2)).toEqual(
+      expect.objectContaining({
+        name : expect.any(String),
+        price : expect.any(Number),
+        weight : expect.any(Number),
+        quantity : expect.any(Number)
+      })
+    );
+  });
 });
