@@ -35,12 +35,23 @@ describe('StoreItem', () => {
     );
   });
   test('Create a StoreItem with a quantity', () => {
-    expect(new app.StoreItem('bananas', 2.38, 2)).toEqual(
+    expect(new app.StoreItem('bananas', 2.38, 2, 2)).toEqual(
       expect.objectContaining({
         name : expect.any(String),
         price : expect.any(Number),
         weight : expect.any(Number),
         quantity : expect.any(Number)
+      })
+    );
+  });
+  test('Create a StoreItem with a markdown', () => {
+    expect(new app.StoreItem('bananas', 2.38, 2, 1, 3)).toEqual(
+      expect.objectContaining({
+        name : expect.any(String),
+        price : expect.any(Number),
+        weight : expect.any(Number),
+        quantity : expect.any(Number),
+        markdown : expect.any(Number)
       })
     );
   });
