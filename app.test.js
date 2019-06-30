@@ -8,3 +8,13 @@ describe('setup objects', () => {
     expect(app.Cart).toBeDefined();
   });
 });
+
+describe('StoreItem', () => {
+  test('Create a StoreItem with a name', () => {
+    expect(new app.StoreItem('bananas')).toEqual(
+      expect.objectContaining({
+        name : expect.any(String)
+      })
+    );
+  });
+});
