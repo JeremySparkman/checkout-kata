@@ -14,7 +14,10 @@ module.exports = {
       return this.price * this.weight;
     }
   },
-  Cart : class {
-
+  Cart : {
+    lineItem : [],
+    addItem(storeItem){
+      this.lineItem.push(storeItem);
+    }
   }
 }

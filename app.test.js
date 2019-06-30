@@ -63,6 +63,15 @@ describe('StoreItem', () => {
   })
 });
 
+describe('Cart', () => {
+  test('Add a StoreItem to the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    expect(Cart.lineItem[0]).toBe(bananas);
+  });
+});
+
 describe('Markdowns', () => {
   test('Add markdown after StoreItem has been created', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
