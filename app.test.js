@@ -55,6 +55,12 @@ describe('StoreItem', () => {
       })
     );
   });
+  describe('Calculate', () => {
+    test('Price per pound', () => {
+      let bananas = new app.StoreItem('bananas', 2.38, 2);
+      expect(bananas.pricePerPound()).toBe(4.76);
+    });
+  })
 });
 
 describe('Markdowns', () => {

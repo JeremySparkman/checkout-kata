@@ -10,6 +10,9 @@ module.exports = {
     addMarkdown(markdown){
       this.markdown = markdown;
     }
+    pricePerPound(){
+      return this.price * this.weight;
+    }
   },
   Cart : class {
 
