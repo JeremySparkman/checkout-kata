@@ -56,3 +56,15 @@ describe('StoreItem', () => {
     );
   });
 });
+
+describe('Markdowns', () => {
+  test('Add markdown after StoreItem has been created', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    bananas.addMarkdown(3);
+    expect(bananas).toEqual(
+      expect.objectContaining({
+        markdown : 3.00
+      })
+    );
+  });
+});

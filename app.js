@@ -7,6 +7,9 @@ module.exports = {
       this.quantity = quantity;
       this.markdown = markdown;
     }
+    addMarkdown(markdown){
+      this.markdown = markdown;
+    }
   },
   Cart : class {
 
