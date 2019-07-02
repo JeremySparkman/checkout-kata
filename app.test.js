@@ -89,6 +89,17 @@ describe('Cart', () => {
     Cart.addItem(chips);
     expect(Cart.getCartTotal()).toBe(11.08);
   });
+  test('remove an item from the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    let beer = new app.StoreItem('beer', 12);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    Cart.addItem(beer);
+    expect(Cart.lineItem.length).toBe(2);
+    Cart.removeLineItem();
+    expect(Cart.lineItem.length).toBe(1);
+    expect(Cart.lineItem[0].name).toBe('bananas');
+  });
 });
 
 describe('Markdowns', () => {

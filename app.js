@@ -27,6 +27,9 @@ module.exports = {
       return this.lineItem.reduce((a,b) => {
         return a + b.getItemTotal();
       }, total);
+    },
+    removeLineItem(){
+      this.lineItem.pop();
     }
   }
 }
