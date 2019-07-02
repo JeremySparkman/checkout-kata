@@ -101,4 +101,12 @@ describe('Markdowns', () => {
       })
     );
   });
+  test('Calculate total after adding markdown to an item', () => {
+    let beer = new app.StoreItem('beer', 10, 1, 2, 2);
+    expect(beer.getItemTotal()).toEqual(16);
+  });
+  test('Calculate total after adding markdown to a weighted item', () => {
+    let beer = new app.StoreItem('bananas', 2.50, 3, 1, .25);
+    expect(beer.getItemTotal()).toEqual(6.75);
+  });
 });

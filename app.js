@@ -11,7 +11,7 @@ module.exports = {
       this.markdown = markdown;
     }
     pricePerPound(){
-      return this.price * this.weight;
+      return (this.price - this.markdown) * this.weight;
     }
     getItemTotal(){
       return this.pricePerPound() * this.quantity;
