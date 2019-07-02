@@ -7,6 +7,9 @@ describe('setup objects', () => {
   test('expect Cart to be defined', () => {
     expect(app.Cart).toBeDefined();
   });
+  test('expect Special to be defined', () => {
+    expect(app.Special).toBeDefined();
+  });
 });
 
 describe('StoreItem', () => {

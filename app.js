@@ -17,6 +17,9 @@ module.exports = {
       return this.pricePerPound() * this.quantity;
     }
   },
+  Special : class {
+
+  },
   Cart : {
     lineItem : [],
     addItem(storeItem){
