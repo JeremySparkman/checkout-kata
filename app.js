@@ -28,8 +28,16 @@ module.exports = {
         return a + b.getItemTotal();
       }, total);
     },
-    removeLineItem(){
-      this.lineItem.pop();
+    removeLineItem(itemToRemove){
+      if (itemToRemove){
+        this.lineItem.forEach((storeItem, index) => {
+          if (storeItem.name === itemToRemove){
+            this.lineItem.splice(index, 1);
+          }
+        });
+      } else {
+        this.lineItem.pop();
+      }
     }
   }
 }

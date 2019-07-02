@@ -100,6 +100,19 @@ describe('Cart', () => {
     expect(Cart.lineItem.length).toBe(1);
     expect(Cart.lineItem[0].name).toBe('bananas');
   });
+  test('remove an item from the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    let kombucha = new app.StoreItem('kombucha', 5);
+    let beer = new app.StoreItem('beer', 12);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    Cart.addItem(kombucha);
+    Cart.addItem(beer);
+    expect(Cart.lineItem.length).toBe(3);
+    Cart.removeLineItem('kombucha');
+    expect(Cart.lineItem.length).toBe(2);
+    expect(Cart.lineItem[1].name).toBe('beer');
+  });
 });
 
 describe('Markdowns', () => {
