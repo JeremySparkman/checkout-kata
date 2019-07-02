@@ -100,7 +100,7 @@ describe('Cart', () => {
     expect(Cart.lineItem.length).toBe(1);
     expect(Cart.lineItem[0].name).toBe('bananas');
   });
-  test('remove an item from the cart', () => {
+  test('remove an item from the cart by name', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let kombucha = new app.StoreItem('kombucha', 5);
     let beer = new app.StoreItem('beer', 12);
