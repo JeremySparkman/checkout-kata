@@ -70,6 +70,12 @@ describe('Cart', () => {
     Cart.addItem(bananas);
     expect(Cart.lineItem[0]).toBe(bananas);
   });
+  test('calculate total after adding item to the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    expect(Cart.getCartTotal()).toBe(2.38);
+  });
 });
 
 describe('Markdowns', () => {

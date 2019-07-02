@@ -13,11 +13,17 @@ module.exports = {
     pricePerPound(){
       return this.price * this.weight;
     }
+    getItemTotal(){
+      return this.pricePerPound() * this.quantity;
+    }
   },
   Cart : {
     lineItem : [],
     addItem(storeItem){
       this.lineItem.push(storeItem);
+    },
+    getCartTotal : function(){
+      return this.lineItem[0].getItemTotal();
     }
   }
 }
