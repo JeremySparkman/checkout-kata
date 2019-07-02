@@ -64,6 +64,9 @@ describe('StoreItem', () => {
 });
 
 describe('Cart', () => {
+  beforeEach(() => {
+    app.Cart.lineItem = [];
+  });
   test('Add a StoreItem to the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let Cart = app.Cart;
@@ -75,6 +78,16 @@ describe('Cart', () => {
     let Cart = app.Cart;
     Cart.addItem(bananas);
     expect(Cart.getCartTotal()).toBe(2.38);
+  });
+  test('calculate total after adding multiple items to the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38, .5);
+    let soup = new app.StoreItem('soup', 1.89);
+    let chips = new app.StoreItem('chips', 4, 1, 2);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    Cart.addItem(soup);
+    Cart.addItem(chips);
+    expect(Cart.getCartTotal()).toBe(11.08);
   });
 });
 

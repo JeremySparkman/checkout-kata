@@ -23,7 +23,10 @@ module.exports = {
       this.lineItem.push(storeItem);
     },
     getCartTotal : function(){
-      return this.lineItem[0].getItemTotal();
+      let total = 0;
+      return this.lineItem.reduce((a,b) => {
+        return a + b.getItemTotal();
+      }, total);
     }
   }
 }
