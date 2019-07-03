@@ -73,9 +73,10 @@ module.exports = {
     },
     getCartTotal(){
       let total = 0;
-      return this.lineItems.reduce((a,b) => {
+      total = this.lineItems.reduce((a,b) => {
         return a + b.calculateItemTotal();
       }, total);
+      return Number(total.toFixed(2));
     },
     removeLineItem(itemToRemove){
       if (itemToRemove){

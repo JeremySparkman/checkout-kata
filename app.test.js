@@ -145,6 +145,16 @@ describe('Cart', () => {
     expect(Cart.lineItems.length).toBe(2);
     expect(Cart.lineItems[1].name).toBe('beer');
   });
+  test('when calculating the cart, total should be in money format, no extra decimals', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    let kombucha = new app.StoreItem('kombucha', 5.76);
+    let beer = new app.StoreItem('beer', 9.99);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    Cart.addItem(kombucha);
+    Cart.addItem(beer);
+    expect(Cart.getCartTotal()).toBe(18.13);
+  });
 });
 
 describe('Markdowns', () => {
