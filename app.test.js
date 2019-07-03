@@ -145,8 +145,7 @@ describe('Specials', () => {
       expect.objectContaining({
         qualifyingQuantity : 2,
         discountedQuantity : 1,
-        discount : 1,
-        isPercentOff : true
+        discount : 1
       })
     );
   });
@@ -167,5 +166,11 @@ describe('Specials', () => {
     let beer = new app.StoreItem('beer', 10, 1, 2);
     beer.addSpecial(buy1get1free);
     expect(beer.calculateItemTotal()).toBe(17.5);
+  });
+  test('Calculate buy X for $Y off', () => {
+    let buyXforY = new app.Special(3, 3, 5, false);
+    let popcorn = new app.StoreItem('popcorn', 5, 1, 4); 
+    popcorn.addSpecial(buyXforY);
+    expect(popcorn.calculateItemTotal()).toBe(10);
   });
 });

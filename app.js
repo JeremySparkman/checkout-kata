@@ -31,17 +31,28 @@ module.exports = {
       let Special = this.special;
       let quantity = this.quantity;
       let price = this.pricePerPound();
-      let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;
 
-      while (quantity >= minimumQuantityForDiscount){
-        if (Special.isPercentOff){
+      if (Special.isPercentOff) {
+        let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;
+
+        while (quantity >= minimumQuantityForDiscount){
           let discountTotal = (price * Special.discountedQuantity) * Special.discount;
           total -= discountTotal;
           quantity -= minimumQuantityForDiscount;
         }
-      }
 
-      return total;
+        return total;
+
+      } else {
+        let minimumQuantityForDiscount = Special.qualifyingQuantity;
+
+        if (quantity >= minimumQuantityForDiscount){
+          total = Special.discount + ((quantity - minimumQuantityForDiscount) * price);
+        }
+
+        return total;
+
+      }
     }
   },
   Special : class {
