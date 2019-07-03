@@ -70,6 +70,7 @@ module.exports = {
     lineItems : [],
     addItem(storeItem){
       this.lineItems.push(storeItem);
+      return this.getCartTotal();
     },
     getCartTotal(){
       let total = 0;
@@ -88,6 +89,7 @@ module.exports = {
       } else {
         this.lineItems.pop();
       }
+      return this.getCartTotal();
     },
     updateQuantity(itemToUpdate, newQuantity){
       this.lineItems.forEach((storeItem, index) => {
@@ -99,6 +101,7 @@ module.exports = {
           }
         }
       });
+      return this.getCartTotal();
     }
   }
 }

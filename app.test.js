@@ -92,6 +92,20 @@ describe('Cart', () => {
     Cart.addItem(chips);
     expect(Cart.getCartTotal()).toBe(11.08);
   });
+  test('calculate total after adding/updating/removing an item from the cart', () => {
+    //add
+    let bananas = new app.StoreItem('bananas', 2.38);
+    expect(app.Cart.addItem(bananas)).toBe(2.38);
+    let beer = new app.StoreItem('beer', 12);
+    expect(app.Cart.addItem(beer)).toBe(14.38);
+    
+    //update
+    expect(app.Cart.updateQuantity('beer', 3)).toBe(38.38);
+
+    //remove
+    expect(app.Cart.removeLineItem('beer')).toBe(2.38);
+    expect(app.Cart.updateQuantity('bananas', 0)).toBe(0);
+  });
   test('remove an item from the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let beer = new app.StoreItem('beer', 12);
