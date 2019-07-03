@@ -16,6 +16,9 @@ module.exports = {
     getItemTotal(){
       return this.pricePerPound() * this.quantity;
     }
+    addSpecial(special){
+      this.special = special;
+    }
   },
   Special : class {
     constructor(qualifyingQuantity, discountedQuantity, discount, isPercentOff){

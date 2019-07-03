@@ -150,4 +150,10 @@ describe('Specials', () => {
       })
     );
   });
+  test('Add a Special to a StoreItem', () => {
+    let buy1get1free = new app.Special(2, 1, 1, true);
+    let beer = new app.StoreItem('beer', 10, 1, 2);
+    beer.addSpecial(buy1get1free);
+    expect(beer.special).toBe(buy1get1free);
+  });
 });
