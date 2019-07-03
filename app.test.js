@@ -208,4 +208,16 @@ describe('Specials', () => {
     popcorn.addSpecial(buyXforYLimit3);
     expect(popcorn.calculateItemTotal()).toBe(15);
   });
+  test('invalidate a special when the items quantity no longer qualifies for it', () => {
+    app.Cart.lineItems = [];
+    let buy3get1free = new app.Special(3, 1, 1, true);
+    let accentureRobot = new app.StoreItem('Squishy Accenture Robot', 2, 1, 4);
+    let popcorn = new app.StoreItem('popcorn', 2, 1, 2);
+    accentureRobot.addSpecial(buy3get1free);
+    app.Cart.addItem(accentureRobot);
+    app.Cart.addItem(popcorn);
+    expect(app.Cart.getCartTotal()).toBe(10);
+    app.Cart.updateQuantity('Squishy Accenture Robot', 2);
+    expect(app.Cart.getCartTotal()).toBe(8);
+  });
 });
