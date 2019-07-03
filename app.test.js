@@ -116,6 +116,22 @@ describe('Cart', () => {
     expect(Cart.lineItems.length).toBe(2);
     expect(Cart.lineItems[1].name).toBe('beer');
   });
+  test('update quantity of an item within the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38, 1, 2);
+    let kombucha = new app.StoreItem('kombucha', 5, 1, 3);
+    let beer = new app.StoreItem('beer', 12, 1, 4);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    Cart.addItem(kombucha);
+    Cart.addItem(beer);
+    expect(Cart.lineItems.length).toBe(3);
+    Cart.updateQuantity('bananas', 1);
+    expect(Cart.lineItems[0].quantity).toBe(1);
+    Cart.updateQuantity('kombucha', 2);
+    expect(Cart.lineItems[1].quantity).toBe(2);
+    Cart.updateQuantity('beer', 3);
+    expect(Cart.lineItems[2].quantity).toBe(3);
+  });
 });
 
 describe('Markdowns', () => {

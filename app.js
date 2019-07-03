@@ -32,7 +32,7 @@ module.exports = {
       let quantity = this.quantity;
       let price = this.pricePerPound();
 
-      if (Special.isPercentOff) {
+      if (Special.isPercentOff){
         let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;
         let discountedItemsCount = 0;
 
@@ -86,6 +86,13 @@ module.exports = {
       } else {
         this.lineItems.pop();
       }
+    },
+    updateQuantity(itemToUpdate, newQuantity){
+      this.lineItems.forEach((storeItem) => {
+        if (storeItem.name === itemToUpdate){
+          storeItem.quantity = newQuantity;
+        }
+      });
     }
   }
 }
