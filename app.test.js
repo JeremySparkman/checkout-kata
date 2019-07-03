@@ -76,36 +76,6 @@ describe('Cart', () => {
     Cart.addLineItem(bananas);
     expect(Cart.lineItems[0]).toBe(bananas);
   });
-  test('calculate total after adding item to the cart', () => {
-    let bananas = new app.StoreItem('bananas', 2.38);
-    let Cart = app.Cart;
-    Cart.addLineItem(bananas);
-    expect(Cart.calculateCartTotal()).toBe(2.38);
-  });
-  test('calculate total after adding multiple items to the cart', () => {
-    let bananas = new app.StoreItem('bananas', 2.38, .5);
-    let soup = new app.StoreItem('soup', 1.89);
-    let chips = new app.StoreItem('chips', 4, 1, 2);
-    let Cart = app.Cart;
-    Cart.addLineItem(bananas);
-    Cart.addLineItem(soup);
-    Cart.addLineItem(chips);
-    expect(Cart.calculateCartTotal()).toBe(11.08);
-  });
-  test('calculate total after adding/updating/removing an item from the cart', () => {
-    //add
-    let bananas = new app.StoreItem('bananas', 2.38);
-    expect(app.Cart.addLineItem(bananas)).toBe(2.38);
-    let beer = new app.StoreItem('beer', 12);
-    expect(app.Cart.addLineItem(beer)).toBe(14.38);
-    
-    //update
-    expect(app.Cart.updateQuantity('beer', 3)).toBe(38.38);
-
-    //remove
-    expect(app.Cart.removeLineItem('beer')).toBe(2.38);
-    expect(app.Cart.updateQuantity('bananas', 0)).toBe(0);
-  });
   test('remove an item from the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let beer = new app.StoreItem('beer', 12);
@@ -159,15 +129,48 @@ describe('Cart', () => {
     expect(Cart.lineItems.length).toBe(2);
     expect(Cart.lineItems[1].name).toBe('beer');
   });
-  test('when calculating the cart, total should be in money format, no extra decimals', () => {
-    let bananas = new app.StoreItem('bananas', 2.38);
-    let kombucha = new app.StoreItem('kombucha', 5.76);
-    let beer = new app.StoreItem('beer', 9.99);
-    let Cart = app.Cart;
-    Cart.addLineItem(bananas);
-    Cart.addLineItem(kombucha);
-    Cart.addLineItem(beer);
-    expect(Cart.calculateCartTotal()).toBe(18.13);
+
+  describe('Calculate', () => {
+    test('calculate total after adding item to the cart', () => {
+      let bananas = new app.StoreItem('bananas', 2.38);
+      let Cart = app.Cart;
+      Cart.addLineItem(bananas);
+      expect(Cart.calculateCartTotal()).toBe(2.38);
+    });
+    test('calculate total after adding multiple items to the cart', () => {
+      let bananas = new app.StoreItem('bananas', 2.38, .5);
+      let soup = new app.StoreItem('soup', 1.89);
+      let chips = new app.StoreItem('chips', 4, 1, 2);
+      let Cart = app.Cart;
+      Cart.addLineItem(bananas);
+      Cart.addLineItem(soup);
+      Cart.addLineItem(chips);
+      expect(Cart.calculateCartTotal()).toBe(11.08);
+    });
+    test('calculate total after adding/updating/removing an item from the cart', () => {
+      //add
+      let bananas = new app.StoreItem('bananas', 2.38);
+      expect(app.Cart.addLineItem(bananas)).toBe(2.38);
+      let beer = new app.StoreItem('beer', 12);
+      expect(app.Cart.addLineItem(beer)).toBe(14.38);
+      
+      //update
+      expect(app.Cart.updateQuantity('beer', 3)).toBe(38.38);
+  
+      //remove
+      expect(app.Cart.removeLineItem('beer')).toBe(2.38);
+      expect(app.Cart.updateQuantity('bananas', 0)).toBe(0);
+    });
+    test('when calculating the cart, total should be in money format, no extra decimals', () => {
+      let bananas = new app.StoreItem('bananas', 2.38);
+      let kombucha = new app.StoreItem('kombucha', 5.76);
+      let beer = new app.StoreItem('beer', 9.99);
+      let Cart = app.Cart;
+      Cart.addLineItem(bananas);
+      Cart.addLineItem(kombucha);
+      Cart.addLineItem(beer);
+      expect(Cart.calculateCartTotal()).toBe(18.13);
+    });
   });
 });
 
@@ -181,13 +184,15 @@ describe('Markdowns', () => {
       })
     );
   });
-  test('Calculate total after adding markdown to an item', () => {
-    let beer = new app.StoreItem('beer', 10, 1, 2, 2);
-    expect(beer.calculateItemTotal()).toEqual(16);
-  });
-  test('Calculate total after adding markdown to a weighted item', () => {
-    let beer = new app.StoreItem('bananas', 2.50, 3, 1, .25);
-    expect(beer.calculateItemTotal()).toEqual(6.75);
+  describe('Calculate', () => {
+    test('Calculate total after adding markdown to an item', () => {
+      let beer = new app.StoreItem('beer', 10, 1, 2, 2);
+      expect(beer.calculateItemTotal()).toEqual(16);
+    });
+    test('Calculate total after adding markdown to a weighted item', () => {
+      let beer = new app.StoreItem('bananas', 2.50, 3, 1, .25);
+      expect(beer.calculateItemTotal()).toEqual(6.75);
+    });
   });
 });
 
