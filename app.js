@@ -34,11 +34,13 @@ module.exports = {
 
       if (Special.isPercentOff) {
         let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;
+        let discountedItemsCount = 0;
 
-        while (quantity >= minimumQuantityForDiscount){
+        while (quantity >= minimumQuantityForDiscount && discountedItemsCount !== Special.limit){
           let discountTotal = (price * Special.discountedQuantity) * Special.discount;
           total -= discountTotal;
           quantity -= minimumQuantityForDiscount;
+          discountedItemsCount += Special.discountedQuantity;
         }
 
         return total;
@@ -51,16 +53,16 @@ module.exports = {
         }
 
         return total;
-
       }
     }
   },
   Special : class {
-    constructor(qualifyingQuantity, discountedQuantity, discount, isPercentOff){
+    constructor(qualifyingQuantity, discountedQuantity, discount, isPercentOff, limit = false){
       this.qualifyingQuantity = qualifyingQuantity;
       this.discountedQuantity = discountedQuantity;
       this.discount = discount;
       this.isPercentOff = isPercentOff;
+      this.limit = limit;
     }
   },
   Cart : {
@@ -68,7 +70,7 @@ module.exports = {
     addItem(storeItem){
       this.lineItems.push(storeItem);
     },
-    getCartTotal : function(){
+    getCartTotal(){
       let total = 0;
       return this.lineItems.reduce((a,b) => {
         return a + b.calculateItemTotal();

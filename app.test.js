@@ -173,4 +173,10 @@ describe('Specials', () => {
     popcorn.addSpecial(buyXforY);
     expect(popcorn.calculateItemTotal()).toBe(10);
   });
+  test('Support limit on specials for Buy X get Y for %Z off', () => {
+    let buyXforYLimit3 = new app.Special(1, 1, 1, true, 3);
+    let popcorn = new app.StoreItem('popcorn', 3, 1, 8);
+    popcorn.addSpecial(buyXforYLimit3);
+    expect(popcorn.calculateItemTotal()).toBe(15);
+  });
 });
