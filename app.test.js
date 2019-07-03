@@ -130,11 +130,11 @@ describe('Markdowns', () => {
   });
   test('Calculate total after adding markdown to an item', () => {
     let beer = new app.StoreItem('beer', 10, 1, 2, 2);
-    expect(beer.getItemTotal()).toEqual(16);
+    expect(beer.calculateItemTotal()).toEqual(16);
   });
   test('Calculate total after adding markdown to a weighted item', () => {
     let beer = new app.StoreItem('bananas', 2.50, 3, 1, .25);
-    expect(beer.getItemTotal()).toEqual(6.75);
+    expect(beer.calculateItemTotal()).toEqual(6.75);
   });
 });
 
@@ -155,5 +155,17 @@ describe('Specials', () => {
     let beer = new app.StoreItem('beer', 10, 1, 2);
     beer.addSpecial(buy1get1free);
     expect(beer.special).toBe(buy1get1free);
+  });
+  test('Calculate a buy 1 get 1 100% off / free special', () => {
+    let buy1get1free = new app.Special(1, 1, 1, true);
+    let beer = new app.StoreItem('beer', 10, 1, 4);
+    beer.addSpecial(buy1get1free);
+    expect(beer.calculateItemTotal()).toBe(20);
+  });
+  test('Calculate a buy 1 get 1 25% off special', () => {
+    let buy1get1free = new app.Special(1, 1, .25, true);
+    let beer = new app.StoreItem('beer', 10, 1, 2);
+    beer.addSpecial(buy1get1free);
+    expect(beer.calculateItemTotal()).toBe(17.5);
   });
 });

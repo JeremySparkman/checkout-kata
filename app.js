@@ -13,11 +13,35 @@ module.exports = {
     pricePerPound(){
       return (this.price - this.markdown) * this.weight;
     }
-    getItemTotal(){
-      return this.pricePerPound() * this.quantity;
+    getTotal(){
+      return (this.pricePerPound() * this.quantity);
+    }
+    calculateItemTotal(){
+      if (this.special){
+        return this.calculateSpecial();
+      } else {
+        return this.getTotal();
+      }
     }
     addSpecial(special){
       this.special = special;
+    }
+    calculateSpecial(){
+      let total = this.getTotal();
+      let Special = this.special;
+      let quantity = this.quantity;
+      let price = this.pricePerPound();
+      let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;
+
+      while (quantity >= minimumQuantityForDiscount){
+        if (Special.isPercentOff){
+          let discountTotal = (price * Special.discountedQuantity) * Special.discount;
+          total -= discountTotal;
+          quantity -= minimumQuantityForDiscount;
+        }
+      }
+
+      return total;
     }
   },
   Special : class {
@@ -36,7 +60,7 @@ module.exports = {
     getCartTotal : function(){
       let total = 0;
       return this.lineItems.reduce((a,b) => {
-        return a + b.getItemTotal();
+        return a + b.calculateItemTotal();
       }, total);
     },
     removeLineItem(itemToRemove){
