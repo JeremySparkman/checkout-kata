@@ -29,8 +29,8 @@ module.exports = {
     calculateSpecial(){
       let total = this.getTotal();
       let Special = this.special;
-      let quantity = this.quantity;
-      let price = this.pricePerPound();
+      let quantity = Special.isWeightedDiscount ? this.weight : this.quantity;
+      let price = this.price;
 
       if (Special.isPercentOff){
         let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;
@@ -57,12 +57,13 @@ module.exports = {
     }
   },
   Special : class {
-    constructor(qualifyingQuantity, discountedQuantity, discount, isPercentOff, limit = false){
+    constructor(qualifyingQuantity, discountedQuantity, discount, isPercentOff, limit = false, isWeightedDiscount){
       this.qualifyingQuantity = qualifyingQuantity;
       this.discountedQuantity = discountedQuantity;
       this.discount = discount;
       this.isPercentOff = isPercentOff;
       this.limit = limit;
+      this.isWeightedDiscount = isWeightedDiscount;
     }
   },
   Cart : {

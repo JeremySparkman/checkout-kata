@@ -220,4 +220,10 @@ describe('Specials', () => {
     app.Cart.updateQuantity('Squishy Accenture Robot', 2);
     expect(app.Cart.getCartTotal()).toBe(8);
   });
+  test('Support buy N, get M, of equal or lesser value for %X off on weighted items', () => {
+    let buyNgetMforX = new app.Special(3, 1, .5, true, false, true);
+    let beef = new app.StoreItem('beef', 1, 4);
+    beef.addSpecial(buyNgetMforX);
+    expect(beef.calculateItemTotal()).toBe(3.50)
+  });
 });
