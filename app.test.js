@@ -257,4 +257,10 @@ describe('Specials', () => {
     beef.addSpecial(buyNgetMforX);
     expect(beef.calculateItemTotal()).toBe(2.63)
   });
+  test('Calculate Buy X for $Y special with a markdown', () => {
+    let buyXforY = new app.Special(3, 3, 5, false);
+    let popcorn = new app.StoreItem('popcorn', 5, 1, 4, 1); 
+    popcorn.addSpecial(buyXforY);
+    expect(popcorn.calculateItemTotal()).toBe(9);
+  });
 });
