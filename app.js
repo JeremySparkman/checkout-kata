@@ -88,9 +88,13 @@ module.exports = {
       }
     },
     updateQuantity(itemToUpdate, newQuantity){
-      this.lineItems.forEach((storeItem) => {
+      this.lineItems.forEach((storeItem, index) => {
         if (storeItem.name === itemToUpdate){
-          storeItem.quantity = newQuantity;
+          if(newQuantity === 0){
+            this.lineItems.splice(index, 1);
+          } else {
+            storeItem.quantity = newQuantity;
+          }
         }
       });
     }

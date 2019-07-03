@@ -132,6 +132,19 @@ describe('Cart', () => {
     Cart.updateQuantity('beer', 3);
     expect(Cart.lineItems[2].quantity).toBe(3);
   });
+  test('when updating the quantity of an item, if set to zero, remove the item from the cart', () => {
+    let bananas = new app.StoreItem('bananas', 2.38);
+    let kombucha = new app.StoreItem('kombucha', 5);
+    let beer = new app.StoreItem('beer', 12);
+    let Cart = app.Cart;
+    Cart.addItem(bananas);
+    Cart.addItem(kombucha);
+    Cart.addItem(beer);
+    expect(Cart.lineItems.length).toBe(3);
+    Cart.updateQuantity('kombucha', 0);
+    expect(Cart.lineItems.length).toBe(2);
+    expect(Cart.lineItems[1].name).toBe('beer');
+  });
 });
 
 describe('Markdowns', () => {
