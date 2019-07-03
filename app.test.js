@@ -68,13 +68,13 @@ describe('StoreItem', () => {
 
 describe('Cart', () => {
   beforeEach(() => {
-    app.Cart.lineItem = [];
+    app.Cart.lineItems = [];
   });
   test('Add a StoreItem to the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let Cart = app.Cart;
     Cart.addItem(bananas);
-    expect(Cart.lineItem[0]).toBe(bananas);
+    expect(Cart.lineItems[0]).toBe(bananas);
   });
   test('calculate total after adding item to the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
@@ -98,10 +98,10 @@ describe('Cart', () => {
     let Cart = app.Cart;
     Cart.addItem(bananas);
     Cart.addItem(beer);
-    expect(Cart.lineItem.length).toBe(2);
+    expect(Cart.lineItems.length).toBe(2);
     Cart.removeLineItem();
-    expect(Cart.lineItem.length).toBe(1);
-    expect(Cart.lineItem[0].name).toBe('bananas');
+    expect(Cart.lineItems.length).toBe(1);
+    expect(Cart.lineItems[0].name).toBe('bananas');
   });
   test('remove an item from the cart by name', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
@@ -111,10 +111,10 @@ describe('Cart', () => {
     Cart.addItem(bananas);
     Cart.addItem(kombucha);
     Cart.addItem(beer);
-    expect(Cart.lineItem.length).toBe(3);
+    expect(Cart.lineItems.length).toBe(3);
     Cart.removeLineItem('kombucha');
-    expect(Cart.lineItem.length).toBe(2);
-    expect(Cart.lineItem[1].name).toBe('beer');
+    expect(Cart.lineItems.length).toBe(2);
+    expect(Cart.lineItems[1].name).toBe('beer');
   });
 });
 

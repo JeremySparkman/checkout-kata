@@ -26,25 +26,25 @@ module.exports = {
     }
   },
   Cart : {
-    lineItem : [],
+    lineItems : [],
     addItem(storeItem){
-      this.lineItem.push(storeItem);
+      this.lineItems.push(storeItem);
     },
     getCartTotal : function(){
       let total = 0;
-      return this.lineItem.reduce((a,b) => {
+      return this.lineItems.reduce((a,b) => {
         return a + b.getItemTotal();
       }, total);
     },
     removeLineItem(itemToRemove){
       if (itemToRemove){
-        this.lineItem.forEach((storeItem, index) => {
+        this.lineItems.forEach((storeItem, index) => {
           if (storeItem.name === itemToRemove){
-            this.lineItem.splice(index, 1);
+            this.lineItems.splice(index, 1);
           }
         });
       } else {
-        this.lineItem.pop();
+        this.lineItems.pop();
       }
     }
   }
