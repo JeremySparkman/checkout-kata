@@ -21,16 +21,16 @@ module.exports = {
     }
     calculateItemTotal(){
       if (this.special){
-        return this.calculateSpecial();
+        return Number((this.calculateSpecial()).toFixed(2));
       } else {
-        return this.getTotal();
+        return Number((this.getTotal()).toFixed(2));
       }
     }
     calculateSpecial(){
       let total = this.getTotal();
       let Special = this.special;
       let quantity = Special.isWeightedDiscount ? this.weight : this.quantity;
-      let price = this.price;
+      let price = this.price - this.markdown;
 
       if (Special.isPercentOff){
         let minimumQuantityForDiscount = Special.qualifyingQuantity + Special.discountedQuantity;

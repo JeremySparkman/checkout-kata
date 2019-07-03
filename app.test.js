@@ -250,4 +250,11 @@ describe('Specials', () => {
     beef.addSpecial(buyNgetMforX);
     expect(beef.calculateItemTotal()).toBe(3.50)
   });
+  test('Calculate Buy X Get Y weighted Special with a markdown', () =>{
+    let buyNgetMforX = new app.Special(3, 1, .5, true, false, true);
+    let beef = new app.StoreItem('beef', 1, 4);
+    beef.addMarkdown(.25);
+    beef.addSpecial(buyNgetMforX);
+    expect(beef.calculateItemTotal()).toBe(2.63)
+  });
 });
