@@ -137,3 +137,17 @@ describe('Markdowns', () => {
     expect(beer.getItemTotal()).toEqual(6.75);
   });
 });
+
+describe('Specials', () => {
+  test('Create specials in the form, Buy N items get M at %X off.', () => {
+    let buy1get1free = new app.Special(2, 1, 1, true);
+    expect(buy1get1free).toEqual(
+      expect.objectContaining({
+        qualifyingQuantity : 2,
+        discountedQuantity : 1,
+        discount : 1,
+        isPercentOff : true
+      })
+    );
+  });
+});

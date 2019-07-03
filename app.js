@@ -18,7 +18,12 @@ module.exports = {
     }
   },
   Special : class {
-
+    constructor(qualifyingQuantity, discountedQuantity, discount, isPercentOff){
+      this.qualifyingQuantity = qualifyingQuantity;
+      this.discountedQuantity = discountedQuantity;
+      this.discount = discount;
+      this.isPercentOff = isPercentOff;
+    }
   },
   Cart : {
     lineItem : [],
