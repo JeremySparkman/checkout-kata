@@ -10,11 +10,14 @@ module.exports = {
     addMarkdown(markdown){
       this.markdown = markdown;
     }
-    pricePerPound(){
-      return (this.price - this.markdown) * this.weight;
+    addSpecial(special){
+      this.special = special;
     }
     getTotal(){
-      return (this.pricePerPound() * this.quantity);
+      return (this.calculatePricePerPound() * this.quantity);
+    }
+    calculatePricePerPound(){
+      return (this.price - this.markdown) * this.weight;
     }
     calculateItemTotal(){
       if (this.special){
@@ -22,9 +25,6 @@ module.exports = {
       } else {
         return this.getTotal();
       }
-    }
-    addSpecial(special){
-      this.special = special;
     }
     calculateSpecial(){
       let total = this.getTotal();
@@ -68,16 +68,9 @@ module.exports = {
   },
   Cart : {
     lineItems : [],
-    addItem(storeItem){
+    addLineItem(storeItem){
       this.lineItems.push(storeItem);
-      return this.getCartTotal();
-    },
-    getCartTotal(){
-      let total = 0;
-      total = this.lineItems.reduce((a,b) => {
-        return a + b.calculateItemTotal();
-      }, total);
-      return Number(total.toFixed(2));
+      return this.calculateCartTotal();
     },
     removeLineItem(itemToRemove){
       if (itemToRemove){
@@ -89,7 +82,7 @@ module.exports = {
       } else {
         this.lineItems.pop();
       }
-      return this.getCartTotal();
+      return this.calculateCartTotal();
     },
     updateQuantity(itemToUpdate, newQuantity){
       this.lineItems.forEach((storeItem, index) => {
@@ -101,7 +94,14 @@ module.exports = {
           }
         }
       });
-      return this.getCartTotal();
+      return this.calculateCartTotal();
+    },
+    calculateCartTotal(){
+      let total = 0;
+      total = this.lineItems.reduce((a,b) => {
+        return a + b.calculateItemTotal();
+      }, total);
+      return Number(total.toFixed(2));
     }
   }
 }

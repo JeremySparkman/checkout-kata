@@ -61,7 +61,7 @@ describe('StoreItem', () => {
   describe('Calculate', () => {
     test('Price per pound', () => {
       let bananas = new app.StoreItem('bananas', 2.38, 2);
-      expect(bananas.pricePerPound()).toBe(4.76);
+      expect(bananas.calculatePricePerPound()).toBe(4.76);
     });
   })
 });
@@ -73,31 +73,31 @@ describe('Cart', () => {
   test('Add a StoreItem to the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
+    Cart.addLineItem(bananas);
     expect(Cart.lineItems[0]).toBe(bananas);
   });
   test('calculate total after adding item to the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    expect(Cart.getCartTotal()).toBe(2.38);
+    Cart.addLineItem(bananas);
+    expect(Cart.calculateCartTotal()).toBe(2.38);
   });
   test('calculate total after adding multiple items to the cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38, .5);
     let soup = new app.StoreItem('soup', 1.89);
     let chips = new app.StoreItem('chips', 4, 1, 2);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    Cart.addItem(soup);
-    Cart.addItem(chips);
-    expect(Cart.getCartTotal()).toBe(11.08);
+    Cart.addLineItem(bananas);
+    Cart.addLineItem(soup);
+    Cart.addLineItem(chips);
+    expect(Cart.calculateCartTotal()).toBe(11.08);
   });
   test('calculate total after adding/updating/removing an item from the cart', () => {
     //add
     let bananas = new app.StoreItem('bananas', 2.38);
-    expect(app.Cart.addItem(bananas)).toBe(2.38);
+    expect(app.Cart.addLineItem(bananas)).toBe(2.38);
     let beer = new app.StoreItem('beer', 12);
-    expect(app.Cart.addItem(beer)).toBe(14.38);
+    expect(app.Cart.addLineItem(beer)).toBe(14.38);
     
     //update
     expect(app.Cart.updateQuantity('beer', 3)).toBe(38.38);
@@ -110,8 +110,8 @@ describe('Cart', () => {
     let bananas = new app.StoreItem('bananas', 2.38);
     let beer = new app.StoreItem('beer', 12);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    Cart.addItem(beer);
+    Cart.addLineItem(bananas);
+    Cart.addLineItem(beer);
     expect(Cart.lineItems.length).toBe(2);
     Cart.removeLineItem();
     expect(Cart.lineItems.length).toBe(1);
@@ -122,9 +122,9 @@ describe('Cart', () => {
     let kombucha = new app.StoreItem('kombucha', 5);
     let beer = new app.StoreItem('beer', 12);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    Cart.addItem(kombucha);
-    Cart.addItem(beer);
+    Cart.addLineItem(bananas);
+    Cart.addLineItem(kombucha);
+    Cart.addLineItem(beer);
     expect(Cart.lineItems.length).toBe(3);
     Cart.removeLineItem('kombucha');
     expect(Cart.lineItems.length).toBe(2);
@@ -135,9 +135,9 @@ describe('Cart', () => {
     let kombucha = new app.StoreItem('kombucha', 5, 1, 3);
     let beer = new app.StoreItem('beer', 12, 1, 4);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    Cart.addItem(kombucha);
-    Cart.addItem(beer);
+    Cart.addLineItem(bananas);
+    Cart.addLineItem(kombucha);
+    Cart.addLineItem(beer);
     expect(Cart.lineItems.length).toBe(3);
     Cart.updateQuantity('bananas', 1);
     expect(Cart.lineItems[0].quantity).toBe(1);
@@ -151,9 +151,9 @@ describe('Cart', () => {
     let kombucha = new app.StoreItem('kombucha', 5);
     let beer = new app.StoreItem('beer', 12);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    Cart.addItem(kombucha);
-    Cart.addItem(beer);
+    Cart.addLineItem(bananas);
+    Cart.addLineItem(kombucha);
+    Cart.addLineItem(beer);
     expect(Cart.lineItems.length).toBe(3);
     Cart.updateQuantity('kombucha', 0);
     expect(Cart.lineItems.length).toBe(2);
@@ -164,10 +164,10 @@ describe('Cart', () => {
     let kombucha = new app.StoreItem('kombucha', 5.76);
     let beer = new app.StoreItem('beer', 9.99);
     let Cart = app.Cart;
-    Cart.addItem(bananas);
-    Cart.addItem(kombucha);
-    Cart.addItem(beer);
-    expect(Cart.getCartTotal()).toBe(18.13);
+    Cart.addLineItem(bananas);
+    Cart.addLineItem(kombucha);
+    Cart.addLineItem(beer);
+    expect(Cart.calculateCartTotal()).toBe(18.13);
   });
 });
 
@@ -238,11 +238,11 @@ describe('Specials', () => {
     let accentureRobot = new app.StoreItem('Squishy Accenture Robot', 2, 1, 4);
     let popcorn = new app.StoreItem('popcorn', 2, 1, 2);
     accentureRobot.addSpecial(buy3get1free);
-    app.Cart.addItem(accentureRobot);
-    app.Cart.addItem(popcorn);
-    expect(app.Cart.getCartTotal()).toBe(10);
+    app.Cart.addLineItem(accentureRobot);
+    app.Cart.addLineItem(popcorn);
+    expect(app.Cart.calculateCartTotal()).toBe(10);
     app.Cart.updateQuantity('Squishy Accenture Robot', 2);
-    expect(app.Cart.getCartTotal()).toBe(8);
+    expect(app.Cart.calculateCartTotal()).toBe(8);
   });
   test('Support buy N, get M, of equal or lesser value for %X off on weighted items', () => {
     let buyNgetMforX = new app.Special(3, 1, .5, true, false, true);
